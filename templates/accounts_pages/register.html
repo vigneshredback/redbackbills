@@ -1,0 +1,82 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block title %}
+{% endblock title %}
+
+
+
+{% block style %}
+{% endblock style %}
+
+{% block content %}
+
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-10 w-auto" src="{% static 'images/logo.webp' %}" alt="Your Company">
+      <h1 class="text-2xl text-center font-extralight">Inventory management and billing system</h1>
+    </div>
+  
+    <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" action="#" method="POST">
+      <h2 class="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Register</h2>
+
+        {% csrf_token %}
+        <div>
+          <label for="first_name" class="block text-sm/6 font-medium text-gray-900">First Name</label>
+          <div class="mt-2">
+            <input type="text" name="first_name" id="first_name" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6">
+          </div>
+        </div>
+        
+        <div>
+          <label for="last_name" class="block text-sm/6 font-medium text-gray-900">Last Name</label>
+          <div class="mt-2">
+            <input type="text" name="last_name" id="last_name" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6">
+          </div>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm/6 font-medium text-gray-900">Email</label>
+          <div class="mt-2">
+            <input type="email" name="email" id="email" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6">
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+          <div class="mt-2">
+            <input type="password" name="password" id="password" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6">
+          </div>
+        </div>
+
+        <div>
+          <label for="confirm_password" class="block text-sm/6 font-medium text-gray-900">Confirm Password</label>
+          <div class="mt-2">
+            <input type="password" name="confirm_password" id="confirm_password" autocomplete="email" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm/6">
+          </div>
+        </div>
+  
+        <div>
+          <button type="submit" class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Create new account</button>
+        </div>
+      </form>
+  
+      <p class="mt-10 text-center text-sm/6 text-gray-500">
+        already a member?
+        <a href="{% url 'login' %}" class="font-semibold text-primary hover:text-secondary">Login</a>
+      </p>
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
+
+
+

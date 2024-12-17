@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block title %}
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block style %}
+{% endblock style %}
+
+{% block content %}
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
+
