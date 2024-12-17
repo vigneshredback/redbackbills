@@ -89,13 +89,53 @@ def verify_email_view(request, user_id):
     form = VerificationForm()
     return render(request, 'accounts_pages/verify_email.html', {'user': user, 'form': form})
 
+# def login_view(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email')  # Collect email from form
+#         password = request.POST.get('password')  # Collect password from form
+
+#         # Authenticate using email as username
+#         user = authenticate(request, username=email, password=password)
+#         print("Authenticated user:", user)
+
+#         if user:
+#             # Check if user is active
+#             if not user.is_active:
+#                 messages.error(request, "Your account is inactive. Please verify your email.")
+#                 return redirect('login')
+
+#             # Check if email is verified
+#             email_verification = EmailVerification.objects.filter(user=user).first()
+#             if email_verification and not email_verification.verified:
+#                 messages.error(request, "Your email is not verified. Please verify it.")
+#                 return redirect('verify_email', user_id=user.id)
+
+#             # Log the user in
+#             login(request, user)
+#             messages.success(request, f"Welcome back, {user.first_name}!")
+#             return redirect('index')  # Redirect to your homepage or dashboard
+
+#         else:
+#             messages.error(request, "Invalid email or password.")
+#             return redirect('login')
+
+#     return render(request, 'accounts_pages/login.html')
+
+
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')  # Collect email from form
         password = request.POST.get('password')  # Collect password from form
 
-        # Authenticate using email as username
-        user = authenticate(request, username=email, password=password)
+        # Try to fetch user using email as username
+        user = User.objects.filter(email=email).first()
+
+        if user:
+            # Authenticate using the actual username
+            user = authenticate(request, username=user.username, password=password)
+        else:
+            # For CLI-created superusers where email isn't set, try directly
+            user = authenticate(request, username=email, password=password)
 
         if user:
             # Check if user is active
@@ -103,7 +143,7 @@ def login_view(request):
                 messages.error(request, "Your account is inactive. Please verify your email.")
                 return redirect('login')
 
-            # Check if email is verified
+            # Check if email verification is required
             email_verification = EmailVerification.objects.filter(user=user).first()
             if email_verification and not email_verification.verified:
                 messages.error(request, "Your email is not verified. Please verify it.")
@@ -119,6 +159,8 @@ def login_view(request):
             return redirect('login')
 
     return render(request, 'accounts_pages/login.html')
+
+
 # Step 1: Request Password Reset
 def password_reset_request_view(request):
     if request.method == 'POST':
